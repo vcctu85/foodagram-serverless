@@ -1,10 +1,10 @@
 const docClient = new AWS.DynamoDB.DocumentClient()
 import * as AWS  from 'aws-sdk'
 const todoTable = process.env.TODO_TABLE
-import { TodoItem } from '../models/TodoItem'
+import { FoodagramPost } from '../models/FoodagramPost'
 //import { TodoUpdate } from '../models/TodoUpdate'
 
-export async function putItem(newItem) : Promise<TodoItem> {
+export async function putItem(newItem) : Promise<FoodagramPost> {
 
     await docClient
         .put({
