@@ -102,7 +102,7 @@ export class EditTodo extends React.PureComponent<
           loading={this.state.uploadState !== UploadState.NoUpload}
           type="submit"
         >
-          Upload
+          Upload Image
         </Button>
       </div>
     )

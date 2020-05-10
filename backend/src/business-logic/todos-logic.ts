@@ -7,7 +7,7 @@ import * as AWSXRay from 'aws-xray-sdk'
 const XAWS = AWSXRay.captureAWS(AWS)
 const urlExpiration = process.env.SIGNED_URL_EXPIRATION
 import { getItems, deleteItem, getItem, putItem, updateItem } from '../data-layer/access-db'
-import { FoodagramPost } from '../models/FoodagramPost';
+import { TodoItem } from '../models/TodoItem'
 import * as uuid from 'uuid'
 
 
@@ -15,7 +15,7 @@ const s3 = new XAWS.S3({
   signatureVersion: 'v4'
 })
 
-export async function createPost(userId: string, newTodo: CreateTodoRequest): Promise<FoodagramPost> {
+export async function createTodo(userId: string, newTodo: CreateTodoRequest): Promise<TodoItem> {
   const timestamp = new Date().toISOString()
   const todoId = uuid.v4()
   const newItem = {
@@ -40,18 +40,18 @@ export async function getUploadUrl(todoId: string) {
   })
 }
 
-export async function getPostsPerUser(userId: string) {
+export async function getTODOSPerUser(userId: string) {
   console.log("Getting all todo items for this user")
   const result = await getItems(userId)
   return result
 }
 
-export async function deletePost(todoId, userId) {
+export async function deleteTodo(todoId, userId) {
   const item = await getItem(userId, todoId)
   console.log(item)
   await deleteItem(todoId, userId)
 }
-export async function updatePost(updateTodo:UpdateTodoRequest, todoId, userId) {
+export async function updateTodo(updateTodo:UpdateTodoRequest, todoId, userId) {
   const item = await getItem(userId, todoId)
   console.log(item)
   await updateItem(todoId, userId, updateTodo)
